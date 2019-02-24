@@ -61,8 +61,8 @@ public class MybatisConf implements TransactionManagementConfigurer {
     public DataSource dataSource() {
         com.alibaba.druid.pool.DruidDataSource druidDataSource = new com.alibaba.druid.pool.DruidDataSource();
         druidDataSource.setUsername("root");
-        druidDataSource.setPassword("");
-        druidDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/moreletter?useUnicode=true&useSSL=false");
+        druidDataSource.setPassword("root");
+        druidDataSource.setUrl("jdbc:mysql://localhost:3306/moreletter?useUnicode=true&useSSL=false");
         druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         
         return druidDataSource;
