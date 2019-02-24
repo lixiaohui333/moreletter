@@ -3,6 +3,8 @@
  */
 package com.free.moreletter.controller;
 
+import com.free.moreletter.manager.UserManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,9 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserContoller {
     
+    @Autowired
+    UserManager userManager;
+    
     @RequestMapping("/")
     public String home() {
         return "this is home";
+    }
+    
+    @RequestMapping("/user/list")
+    public Object listUser() {
+        return userManager.listUser();
     }
     
 }
