@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <classPathEntry location="./mysql-connector-java-8.0.15.jar" />
+
+  <context id="moreletter" targetRuntime="MyBatis3">
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://127.0.0.1/moreletter"
+        userId="root"
+        password="">
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="com.free.moreletter.dao.model" targetProject="./target">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="mapper"  targetProject="./target">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+    <javaClientGenerator targetPackage="com.free.moreletter.dao.mapper"  targetProject="./target" type="XMLMAPPER">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+    <table schema="moreletter" tableName="ml_user" domainObjectName="UserDo" >
+      <generatedKey column="id" sqlStatement="mysql" identity="true" />
+    </table>
+
+    <table schema="moreletter" tableName="ml_third_platform_info" domainObjectName="ThirdPlatformInfoDo" >
+      <generatedKey column="id" sqlStatement="mysql" identity="true" />
+    </table>
+
+    <table schema="moreletter" tableName="ml_tag" domainObjectName="TagDo" >
+      <generatedKey column="id" sqlStatement="mysql" identity="true" />
+    </table>
+
+    <table schema="moreletter" tableName="ml_share_hist" domainObjectName="ShareHistDo" >
+      <generatedKey column="id" sqlStatement="mysql" identity="true" />
+    </table>
+
+    <table schema="moreletter" tableName="ml_img" domainObjectName="ImgDo" >
+      <generatedKey column="id" sqlStatement="mysql" identity="true" />
+    </table>
+
+    <table schema="moreletter" tableName="ml_hall" domainObjectName="HallDo" >
+      <generatedKey column="id" sqlStatement="mysql" identity="true" />
+    </table>
+
+    <table schema="moreletter" tableName="ml_category" domainObjectName="CategoryDo" >
+      <generatedKey column="id" sqlStatement="mysql" identity="true" />
+    </table>
+
+    <table schema="moreletter" tableName="ml_article" domainObjectName="ArticleDo" >
+      <generatedKey column="id" sqlStatement="mysql" identity="true" />
+    </table>
+
+  </context>
+</generatorConfiguration>
