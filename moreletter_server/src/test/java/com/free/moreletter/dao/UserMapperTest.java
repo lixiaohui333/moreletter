@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -29,16 +29,13 @@ public class UserMapperTest {
     public void testInsert() {
         UserDo user = new UserDo();
         user.setName("123");
-        user.setCreator("admin");
-        user.setDesc("test");
-        user.setEmail("");
-        user.setNick("test");
         user.setPassword("123");
+        user.setCreator("admin");
         user.setState("test");
-        user.setGmtCreate(Calendar.getInstance().getTime());
-        user.setGmtModified(Calendar.getInstance().getTime());
-
-        int result = userDoMapper.insert(user);
+        user.setGmtCreate(new Date());
+        user.setGmtModified(new Date());
+        
+        int result = userDoMapper.insertSelective(user);
         System.out.println(result);
     }
 }
