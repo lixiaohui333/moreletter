@@ -22,7 +22,12 @@ public class UserContoller {
     
     @RequestMapping("/")
     public String home() {
-        return "this is home";
+        return "this is asasasdasd";
+    }
+
+    @RequestMapping("/lxh")
+    public String lxh() {
+        return "this is lxh";
     }
     
     @RequestMapping("/user/list")
