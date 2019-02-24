@@ -34,7 +34,6 @@ public class MybatisConf implements TransactionManagementConfigurer {
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setTypeAliasesPackage("com.free.moreletter.dao.entity");
 
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
@@ -56,6 +55,17 @@ public class MybatisConf implements TransactionManagementConfigurer {
     @Override
     public PlatformTransactionManager annotationDrivenTransactionManager() {
         return new DataSourceTransactionManager(dataSource);
+    }
+    
+    @Bean
+    public DataSource dataSource() {
+        com.alibaba.druid.pool.DruidDataSource druidDataSource = new com.alibaba.druid.pool.DruidDataSource();
+        druidDataSource.setUsername("root");
+        druidDataSource.setPassword("");
+        druidDataSource.setUrl("jdbc:mysql//localhost:3306/moreletter");
+        druidDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        
+        return druidDataSource;
     }
     
 }
