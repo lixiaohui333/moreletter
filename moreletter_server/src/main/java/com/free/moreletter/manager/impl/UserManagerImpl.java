@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -57,8 +58,18 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public List<UserVo> listUser() {
-        List<UserDo> userDos = userDoMapper.selectByExample(new UserDoExample());
-
+        UserDoExample example = new UserDoExample();
+        UserDoExample.Criteria criteria = example.createCriteria();
+        criteria.andNameEqualTo("123"); // name=123
+        criteria.andStateIn(Arrays.asList("normal", "locked", "deleted")); // and state in ("normal", "locked", "deleted")
+        
+        UserDoExample.Criteria or = example.or();
+        or.andNameEqualTo("321"); // or name=321
+        
+        // select * from ml_user where (name=123 and state in ("normal", "locked", "deleted")) or (name=321)
+        
+        List<UserDo> userDos = userDoMapper.selectByExample(example);
+        
         List<UserVo> result = new ArrayList<>();
         userDos.forEach((userDo)->{
             UserVo userVo = new UserVo();
