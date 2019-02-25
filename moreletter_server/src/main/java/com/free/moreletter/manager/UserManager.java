@@ -6,6 +6,7 @@ package com.free.moreletter.manager;
 import com.free.moreletter.domain.UserVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -44,4 +45,6 @@ public interface UserManager {
      * @return
      */
     public boolean findUser(UserVo userVo);
+
+    public UserVo findUserByLogin(Map<String, Object> body);
 }

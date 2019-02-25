@@ -3,10 +3,12 @@
  */
 package com.free.moreletter.controller;
 
+import com.free.moreletter.domain.UserVo;
 import com.free.moreletter.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  *
@@ -22,7 +24,7 @@ public class UserContoller {
     
     @RequestMapping("/")
     public String home() {
-        return "this is asasasdasd a";
+        return "homehome 33";
     }
 
     @RequestMapping("/lxh")
@@ -33,6 +35,16 @@ public class UserContoller {
     @RequestMapping("/user/list")
     public Object listUser() {
         return userManager.listUser();
+    }
+
+    @RequestMapping(value ="/login",method = RequestMethod.POST)
+    public Object findUser(@RequestBody Map<String,Object> body) {
+
+
+
+
+        return userManager.findUserByLogin(body);
+
     }
     
 }
