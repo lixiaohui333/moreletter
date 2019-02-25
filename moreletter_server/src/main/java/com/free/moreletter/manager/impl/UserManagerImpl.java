@@ -88,6 +88,8 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public boolean findUser(UserVo userVo) {
+        AssertUtil.notNull(userVo, "userVo为空");
+
         return false;
     }
 }

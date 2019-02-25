@@ -79,6 +79,13 @@
 			<version>3.7</version>
 		</dependency>
 		<!-- mybatis end -->
+		<!-- 动态热部署-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- spring热部署 -->
 	</dependencies>
 
 	<build>
