@@ -10,12 +10,14 @@ import com.free.moreletter.domain.UserVo;
 import com.free.moreletter.manager.UserManager;
 import com.free.moreletter.util.AssertUtil;
 import com.free.moreletter.util.CommonConvertor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户管理器
@@ -99,6 +101,24 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public boolean findUser(UserVo userVo) {
+        AssertUtil.notNull(userVo, "userVo为空");
+
         return false;
+    }
+
+    @Override
+    public UserVo findUserByLogin(Map<String, Object> body) {
+
+        String type = (String) body.get("type");
+//        if(StringUtils.isEmpty(type)){
+            UserDoExample example =new UserDoExample();
+            userDoMapper.selectByExample(example);
+//        }else{
+//
+//
+//        }
+
+
+        return null;
     }
 }
