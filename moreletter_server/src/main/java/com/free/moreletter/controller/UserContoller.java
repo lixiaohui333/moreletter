@@ -40,9 +40,6 @@ public class UserContoller {
     @RequestMapping(value ="/login",method = RequestMethod.POST)
     public Object findUser(@RequestBody Map<String,Object> body) {
 
-
-
-
         return userManager.findUserByLogin(body);
 
     }

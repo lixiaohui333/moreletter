@@ -3,7 +3,10 @@
  */
 package com.free.moreletter.manager.impl;
 
+import com.free.moreletter.dao.mapper.ThirdPlatformInfoDoMapper;
 import com.free.moreletter.dao.mapper.UserDoMapper;
+import com.free.moreletter.dao.model.ThirdPlatformInfoDo;
+import com.free.moreletter.dao.model.ThirdPlatformInfoDoExample;
 import com.free.moreletter.dao.model.UserDo;
 import com.free.moreletter.dao.model.UserDoExample;
 import com.free.moreletter.domain.UserVo;
@@ -30,6 +33,10 @@ public class UserManagerImpl implements UserManager {
     
     @Autowired
     UserDoMapper userDoMapper;
+
+
+    @Autowired
+    ThirdPlatformInfoDoMapper thirdPlatformManager;
     
     /**
      * 创建用户
@@ -109,16 +116,39 @@ public class UserManagerImpl implements UserManager {
     @Override
     public UserVo findUserByLogin(Map<String, Object> body) {
 
-        String type = (String) body.get("type");
-//        if(StringUtils.isEmpty(type)){
-            UserDoExample example =new UserDoExample();
-            userDoMapper.selectByExample(example);
-//        }else{
-//
-//
-//        }
 
+        List<UserDo> userDos =null;
 
-        return null;
+        UserDoExample example =new UserDoExample();
+        UserDoExample.Criteria criteria = example.createCriteria();
+        if(!body.containsKey("type")){
+            criteria.andPhoneEqualTo((String) body.getOrDefault("phone",""));
+            criteria.andPasswordEqualTo((String) body.getOrDefault("password",""));
+            userDos=userDoMapper.selectByExample(example);
+        }
+        else{
+            String type = (String) body.getOrDefault("type","");
+            String openId = (String) body.getOrDefault("openId","");
+            ThirdPlatformInfoDoExample platformInfoDoExample = new ThirdPlatformInfoDoExample();
+            ThirdPlatformInfoDoExample.Criteria thirdCriteria = platformInfoDoExample.createCriteria();
+            thirdCriteria.andOpenIdEqualTo(openId);
+            thirdCriteria.andTypeEqualTo(type);
+
+            List<ThirdPlatformInfoDo> thirdPlatformInfoDos = thirdPlatformManager.selectByExample(platformInfoDoExample);
+            if(thirdPlatformInfoDos.size()>0){
+                ThirdPlatformInfoDo platformInfoDo = thirdPlatformInfoDos.get(0);
+
+                criteria.andIdEqualTo(platformInfoDo.getUserId());
+                userDos=userDoMapper.selectByExample(example);
+            }
+        }
+
+        UserVo userVo = null;
+        if(userDos!=null &&userDos.size()>0){
+            userVo = new UserVo();
+            CommonConvertor.convert(userDos.get(0),userVo);
+        }
+
+        return userVo;
     }
 }
