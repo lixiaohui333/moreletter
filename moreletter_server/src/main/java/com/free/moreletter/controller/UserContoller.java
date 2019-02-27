@@ -38,10 +38,8 @@ public class UserContoller {
         return userManager.listUser();
     }
 
-    @RequestMapping(value ="/login",method = RequestMethod.POST)
+    @RequestMapping(value ="/uncheck/login",method = RequestMethod.POST)
     public Object findUser(@RequestBody Map<String,Object> body) {
-
-
         UserVo user = userManager.findUserByLogin(body);
         if(user==null){
             throw new IllegalParamsException("帐号不正确");
@@ -51,7 +49,6 @@ public class UserContoller {
                throw new IllegalParamsException("密码不正确");
             }
         }
-
         return user;
 
     }

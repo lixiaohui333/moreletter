@@ -20,8 +20,8 @@ public class CheckTokenFilter implements Filter {
     }
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("filter2");
-
+//        System.out.println("filter2");
+//
 //        servletResponse.getWriter().println("error");
 //        HttpServletResponseWrapper wrapper = new HttpServletResponseWrapper((HttpServletResponse) servletResponse);
 //        wrapper.sendError(300,"my error:" +servletRequest.get);

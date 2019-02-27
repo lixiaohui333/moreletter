@@ -6,6 +6,7 @@ public class HttpCode {
 
 
     public static final int CODE_ERROR_ILLEGAL = 1000;
+    public static final int CODE_ERROR_TOKEN = 1001;
 
     public static final int CODE_ERROR_UNKNOWN = 9999;
 
