@@ -4,6 +4,7 @@
 package com.free.moreletter.controller;
 
 import com.free.moreletter.domain.UserVo;
+import com.free.moreletter.exception.IllegalParamsException;
 import com.free.moreletter.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,18 @@ public class UserContoller {
     @RequestMapping(value ="/login",method = RequestMethod.POST)
     public Object findUser(@RequestBody Map<String,Object> body) {
 
-        return userManager.findUserByLogin(body);
+
+        UserVo user = userManager.findUserByLogin(body);
+        if(user==null){
+            throw new IllegalParamsException("帐号不正确");
+        }
+        if(!body.containsKey("type")){
+            if(!user.getPassword().equals(body.getOrDefault("password",""))){
+               throw new IllegalParamsException("密码不正确");
+            }
+        }
+
+        return user;
 
     }
     

@@ -13,7 +13,6 @@ import com.free.moreletter.domain.UserVo;
 import com.free.moreletter.manager.UserManager;
 import com.free.moreletter.util.AssertUtil;
 import com.free.moreletter.util.CommonConvertor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +27,7 @@ import java.util.Map;
  * @author veniayang
  * @version $Id: UserManagerImpl.java, v 0.1 2019年02月24日 18:08 veniayang Exp $
  */
+
 @Component
 public class UserManagerImpl implements UserManager {
     
@@ -68,12 +68,12 @@ public class UserManagerImpl implements UserManager {
     @Override
     public List<UserVo> listUser() {
         UserDoExample example = new UserDoExample();
-        UserDoExample.Criteria criteria = example.createCriteria();
-        criteria.andNameEqualTo("123"); // name=123
-        criteria.andStateIn(Arrays.asList("normal", "locked", "deleted")); // and state in ("normal", "locked", "deleted")
-        
-        UserDoExample.Criteria or = example.or();
-        or.andNameEqualTo("321"); // or name=321
+//        UserDoExample.Criteria criteria = example.createCriteria();
+//        criteria.andNameEqualTo("123"); // name=123
+//        criteria.andStateIn(Arrays.asList("normal", "locked", "deleted")); // and state in ("normal", "locked", "deleted")
+//
+//        UserDoExample.Criteria or = example.or();
+//        or.andNameEqualTo("321"); // or name=321
         
         // select * from ml_user where (name=123 and state in ("normal", "locked", "deleted")) or (name=321)
         
@@ -117,14 +117,17 @@ public class UserManagerImpl implements UserManager {
     public UserVo findUserByLogin(Map<String, Object> body) {
 
 
+
         List<UserDo> userDos =null;
 
         UserDoExample example =new UserDoExample();
         UserDoExample.Criteria criteria = example.createCriteria();
         if(!body.containsKey("type")){
+
             criteria.andPhoneEqualTo((String) body.getOrDefault("phone",""));
-            criteria.andPasswordEqualTo((String) body.getOrDefault("password",""));
+//            criteria.andPasswordEqualTo((String) body.getOrDefault("password",""));
             userDos=userDoMapper.selectByExample(example);
+
         }
         else{
             String type = (String) body.getOrDefault("type","");

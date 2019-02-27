@@ -3,12 +3,18 @@
  */
 package com.free.moreletter.controller;
 
+import com.free.moreletter.domain.CategoryVo;
 import com.free.moreletter.domain.UserVo;
 import com.free.moreletter.exception.IllegalParamsException;
+import com.free.moreletter.manager.CategoryManager;
 import com.free.moreletter.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,42 +24,18 @@ import java.util.Map;
  */
 
 @RestController
-public class UserContoller {
+public class CategoryContoller {
     
     @Autowired
-    UserManager userManager;
+    CategoryManager categoryManager;
     
-    @RequestMapping("/")
-    public String home() {
-        return "homehome 33";
-    }
 
-    @RequestMapping("/lxh")
-    public String lxh() {
-        return "this is lxh";
-    }
-    
-    @RequestMapping("/user/list")
+    @RequestMapping("/category/list")
     public Object listUser() {
-        return userManager.listUser();
+
+        List<CategoryVo> categoryVos = categoryManager.listCategory();
+
+        return categoryVos;
     }
 
-    @RequestMapping(value ="/login",method = RequestMethod.POST)
-    public Object findUser(@RequestBody Map<String,Object> body) {
-
-
-        UserVo user = userManager.findUserByLogin(body);
-        if(user==null){
-            return new IllegalParamsException("帐号不正确");
-        }
-        if(!body.containsKey("type")){
-            if(!user.getPassword().equals(body.getOrDefault("password",""))){
-               return new IllegalParamsException("密码不正确");
-            }
-        }
-
-        return user;
-
-    }
-    
 }

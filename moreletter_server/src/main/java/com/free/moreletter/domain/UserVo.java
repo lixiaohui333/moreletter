@@ -3,6 +3,8 @@
  */
 package com.free.moreletter.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 /**
@@ -10,7 +12,8 @@ import java.util.Date;
  * @author veniayang
  * @version $Id: UserVo.java, v 0.1 2019年02月24日 17:57 veniayang Exp $
  */
-public class UserVo extends ToString {
+public class UserVo extends BaseVo {
+
 
     private Long id;
 
@@ -26,15 +29,8 @@ public class UserVo extends ToString {
 
     private String email;
 
+    @JsonIgnore
     private String password;
-
-    private Date gmtCreate;
-
-    private Date gmtModified;
-
-    private String creator;
-
-    private String state;
 
     /**
      * Getter method for property <tt>id</tt>.
@@ -180,75 +176,5 @@ public class UserVo extends ToString {
         this.password = password;
     }
 
-    /**
-     * Getter method for property <tt>gmtCreate</tt>.
-     *
-     * @return property value of gmtCreate
-     */
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
 
-    /**
-     * Setter method for property <tt>counterType</tt>.
-     *
-     * @param gmtCreate value to be assigned to property gmtCreate
-     */
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    /**
-     * Getter method for property <tt>gmtModified</tt>.
-     *
-     * @return property value of gmtModified
-     */
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    /**
-     * Setter method for property <tt>counterType</tt>.
-     *
-     * @param gmtModified value to be assigned to property gmtModified
-     */
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    /**
-     * Getter method for property <tt>creator</tt>.
-     *
-     * @return property value of creator
-     */
-    public String getCreator() {
-        return creator;
-    }
-
-    /**
-     * Setter method for property <tt>counterType</tt>.
-     *
-     * @param creator value to be assigned to property creator
-     */
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
-    /**
-     * Getter method for property <tt>state</tt>.
-     *
-     * @return property value of state
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * Setter method for property <tt>counterType</tt>.
-     *
-     * @param state value to be assigned to property state
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
 }

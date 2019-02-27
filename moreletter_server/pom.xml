@@ -86,6 +86,13 @@
             <optional>true</optional>
         </dependency>
         <!-- spring热部署 -->
+
+        <!-- 添加Spring-boot-starter-redis依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-redis</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

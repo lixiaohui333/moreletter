@@ -3,6 +3,8 @@
  */
 package com.free.moreletter.domain;
 
+import com.free.moreletter.conf.constants.HttpCode;
+
 /**
  *
  * @author veniayang
@@ -10,23 +12,19 @@ package com.free.moreletter.domain;
  */
 public class BaseException extends RuntimeException {
     
-    String code;
-    
-    String msg;
+    public int code;
+
+    public String msg;
     
     public BaseException() {
         super();
     }
     
-    public BaseException(String code) {
-        super(code);
-        
+    public BaseException(int code) {
         this.code = code;
     }
     
-    public BaseException(String code, String msg) {
-        super(code);
-        
+    public BaseException(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -34,8 +32,9 @@ public class BaseException extends RuntimeException {
     public BaseException(Exception e) {
         super(e);
         
-        this.code = "Sever Base Exception";
+        this.code = HttpCode.CODE_ERROR_UNKNOWN;
         this.msg = e.getMessage();
     }
-    
+
+
 }

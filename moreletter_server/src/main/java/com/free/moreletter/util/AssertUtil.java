@@ -3,6 +3,7 @@
  */
 package com.free.moreletter.util;
 
+import com.free.moreletter.conf.constants.HttpCode;
 import com.free.moreletter.domain.BaseException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -19,31 +20,31 @@ public class AssertUtil {
     
     public static void notNull(Object obj, String msg) {
         if (obj == null) {
-            throw new BaseException("Null Exception", msg);
+            throw new BaseException(HttpCode.CODE_ERROR_ILLEGAL, msg);
         }
     }
     
     public static void nill(Object obj, String msg) {
         if (obj != null) {
-            throw new BaseException("Not Null Exception", msg);
+            throw new BaseException(HttpCode.CODE_ERROR_ILLEGAL, msg);
         }
     }
     
     public static void notBlank(String str, String msg) {
         if (StringUtils.isBlank(str)) {
-            throw new BaseException("Blank String Exception", msg);
+            throw new BaseException(HttpCode.CODE_ERROR_ILLEGAL, msg);
         }
     }
     
     public static void notEmpty(Collection col, String msg) {
         if (CollectionUtils.isEmpty(col)) {
-            throw new BaseException("Empty Collection Exception", msg);
+            throw new BaseException(HttpCode.CODE_ERROR_ILLEGAL, msg);
         }
     }
     
     public static void notEmpty(Map map, String msg) {
         if (CollectionUtils.isEmpty(map)) {
-            throw new BaseException("Empty Map Exception", msg);
+            throw new BaseException(HttpCode.CODE_ERROR_ILLEGAL, msg);
         }
     }
 }

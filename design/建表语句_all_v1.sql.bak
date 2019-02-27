@@ -36,7 +36,7 @@ CREATE TABLE `ml_img` (
 CREATE TABLE `ml_third_platform_info` (
   `id` bigint(20) unsigned not null auto_increment comment '主键，自增',
   `type` varchar(32) not null comment '类型，可取值：qq、wx',
-  `open_id` varchar(64) not null comment '第三方唯一标示',
+  `open_id` varchar(256) not null comment '第三方唯一标示',
   `user_id` bigint(20) unsigned not null comment '用户id',
   `gmt_create` datetime not null comment '创建时间',
   `gmt_modified` datetime not null comment '最后修改时间',
