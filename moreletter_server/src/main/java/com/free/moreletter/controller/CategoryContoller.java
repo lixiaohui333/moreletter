@@ -4,18 +4,12 @@
 package com.free.moreletter.controller;
 
 import com.free.moreletter.domain.CategoryVo;
-import com.free.moreletter.domain.UserVo;
-import com.free.moreletter.exception.IllegalParamsException;
 import com.free.moreletter.manager.CategoryManager;
-import com.free.moreletter.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  *

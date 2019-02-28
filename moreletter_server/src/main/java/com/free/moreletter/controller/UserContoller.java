@@ -4,11 +4,14 @@
 package com.free.moreletter.controller;
 
 import com.free.moreletter.domain.UserVo;
-import com.free.moreletter.exception.IllegalParamsException;
+import com.free.moreletter.domain.form.LoginForm;
+import com.free.moreletter.exception.exception.IllegalParamsException;
 import com.free.moreletter.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -50,7 +53,27 @@ public class UserContoller {
             }
         }
         return user;
-
     }
+
+
+    @RequestMapping(value ="/uncheck/regist",method = RequestMethod.POST)
+    public Object registUser(@RequestBody Map<String,Object> body) {
+
+        UserVo user = userManager.registUser(body);
+        return user;
+    }
+
+
+    @RequestMapping(value ="/test",method = RequestMethod.POST)
+    public Object testValidation(@Valid LoginForm loginForm, BindingResult bindingResult) {
+
+//        UserVo user = userManager.registUser(body);
+
+//        Map<String, Object> model = bindingResult.getModel();
+
+        return loginForm;
+    }
+
+
     
 }

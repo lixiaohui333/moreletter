@@ -47,4 +47,6 @@ public interface UserManager {
     public boolean findUser(UserVo userVo);
 
     public UserVo findUserByLogin(Map<String, Object> body);
+
+    UserVo registUser(Map<String, Object> body);
 }

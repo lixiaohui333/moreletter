@@ -1,4 +1,4 @@
-package com.free.moreletter.exception;
+package com.free.moreletter.exception.exception;
 
 import com.free.moreletter.conf.constants.HttpCode;
 import com.free.moreletter.domain.BaseException;

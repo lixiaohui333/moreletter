@@ -13,6 +13,7 @@ import com.free.moreletter.domain.UserVo;
 import com.free.moreletter.manager.UserManager;
 import com.free.moreletter.util.AssertUtil;
 import com.free.moreletter.util.CommonConvertor;
+import com.free.moreletter.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -115,9 +116,6 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     public UserVo findUserByLogin(Map<String, Object> body) {
-
-
-
         List<UserDo> userDos =null;
 
         UserDoExample example =new UserDoExample();
@@ -153,5 +151,26 @@ public class UserManagerImpl implements UserManager {
         }
 
         return userVo;
+    }
+
+    @Override
+    public UserVo registUser(Map<String, Object> body) {
+
+        String teype = (String) body.getOrDefault("teype", "");
+        //手机号码
+        if(TextUtils.isEmpty(teype)){
+            String phone = (String) body.get("phone");
+            String password = (String) body.get("password");
+            UserDo userDo = new UserDo();
+            userDo.setPassword(password);
+            userDo.setPhone(phone);
+            userDoMapper.insert(userDo);
+
+        }else{
+            //三方
+
+        }
+
+        return null;
     }
 }
