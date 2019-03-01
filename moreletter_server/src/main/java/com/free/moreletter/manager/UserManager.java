@@ -6,6 +6,7 @@ package com.free.moreletter.manager;
 import com.free.moreletter.domain.UserVo;
 import com.free.moreletter.domain.form.LoginByPhoneForm;
 import com.free.moreletter.domain.form.LoginByPlatForm;
+import com.free.moreletter.domain.form.RegistForm;
 
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,7 @@ public interface UserManager {
 
 //    public UserVo findUserByLogin(Map<String, Object> body);
 
-    UserVo registUser(Map<String, Object> body);
+    UserVo registUser(RegistForm body);
 
     UserVo findUserByPlat(LoginByPlatForm loginForm);
     UserVo findUserByPhone(LoginByPhoneForm loginForm);

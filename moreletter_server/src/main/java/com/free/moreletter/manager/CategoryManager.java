@@ -17,7 +17,9 @@ public interface CategoryManager {
      * 
      * @return
      */
-    public List<CategoryVo> listCategory();
+    List<CategoryVo> listCategory();
+
+    Long add(String name);
 
 
 }

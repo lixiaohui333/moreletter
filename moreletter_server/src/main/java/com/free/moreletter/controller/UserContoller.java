@@ -6,6 +6,7 @@ package com.free.moreletter.controller;
 import com.free.moreletter.domain.UserVo;
 import com.free.moreletter.domain.form.LoginByPhoneForm;
 import com.free.moreletter.domain.form.LoginByPlatForm;
+import com.free.moreletter.domain.form.RegistForm;
 import com.free.moreletter.exception.exception.IllegalParamsException;
 import com.free.moreletter.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +77,9 @@ public class UserContoller {
 
 
     @RequestMapping(value = "/uncheck/regist", method = RequestMethod.POST)
-    public Object registUser(@RequestBody Map<String, Object> body) {
+    public Object registUser(@Valid @RequestBody RegistForm registForm) {
 
-        UserVo user = userManager.registUser(body);
+        UserVo user = userManager.registUser(registForm);
 
         return user;
     }

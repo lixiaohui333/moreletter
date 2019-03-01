@@ -1,26 +1,17 @@
 /**
  * Alipay.com Inc. Copyright (c) 2004-2019 All Rights Reserved.
  */
-package com.free.moreletter.domain;
+package com.free.moreletter.domain.article;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.Date;
+import com.free.moreletter.domain.BaseVo;
 
 /**
  *
  * @author veniayang
  * @version $Id: UserVo.java, v 0.1 2019年02月24日 17:57 veniayang Exp $
  */
-public class CategoryVo extends BaseVo {
-
-    public CategoryVo() {
-    }
-
-    public CategoryVo(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+public class TagVo extends BaseVo {
 
     private Long id;
 

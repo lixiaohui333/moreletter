@@ -93,7 +93,7 @@
             <artifactId>spring-boot-starter-redis</artifactId>
         </dependency>
 
-        <!-- 添加 参数验证 依赖 -->
+        <!-- 添加 参数验证  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>

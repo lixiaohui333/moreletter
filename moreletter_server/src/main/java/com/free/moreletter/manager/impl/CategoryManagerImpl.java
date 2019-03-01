@@ -1,9 +1,11 @@
 package com.free.moreletter.manager.impl;
 
 import com.free.moreletter.dao.mapper.CategoryDoMapper;
+import com.free.moreletter.dao.mapper.TagDoMapper;
 import com.free.moreletter.dao.model.CategoryDo;
 import com.free.moreletter.dao.model.CategoryDoExample;
 import com.free.moreletter.domain.CategoryVo;
+import com.free.moreletter.exception.exception.BusinessException;
 import com.free.moreletter.manager.CategoryManager;
 import com.free.moreletter.util.CommonConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class CategoryManagerImpl implements CategoryManager {
     @Autowired
     CategoryDoMapper categoryDoMapper;
 
+
     @Override
     public List<CategoryVo> listCategory() {
 
@@ -33,5 +36,20 @@ public class CategoryManagerImpl implements CategoryManager {
         }));
 
         return result;
+    }
+
+    @Override
+    public Long add(String name) {
+
+        CategoryDo categoryDo = new CategoryDo();
+        categoryDo.setName(name);
+        try {
+            categoryDoMapper.insert(categoryDo);
+        }catch (Exception e){
+            throw new BusinessException("该类目已经存在");
+        }
+
+
+        return categoryDo.getId();
     }
 }

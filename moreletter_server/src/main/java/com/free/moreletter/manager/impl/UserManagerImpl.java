@@ -12,10 +12,13 @@ import com.free.moreletter.dao.model.UserDoExample;
 import com.free.moreletter.domain.UserVo;
 import com.free.moreletter.domain.form.LoginByPhoneForm;
 import com.free.moreletter.domain.form.LoginByPlatForm;
+import com.free.moreletter.domain.form.RegistForm;
+import com.free.moreletter.exception.exception.PhoneExistException;
 import com.free.moreletter.manager.UserManager;
 import com.free.moreletter.util.AssertUtil;
 import com.free.moreletter.util.CommonConvertor;
 import com.free.moreletter.util.TextUtils;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,21 +26,21 @@ import java.util.*;
 
 /**
  * 用户管理器
- * 
+ *
  * @author veniayang
  * @version $Id: UserManagerImpl.java, v 0.1 2019年02月24日 18:08 veniayang Exp $
  */
 
 @Component
 public class UserManagerImpl implements UserManager {
-    
+
     @Autowired
     UserDoMapper userDoMapper;
 
 
     @Autowired
     ThirdPlatformInfoDoMapper thirdPlatformManager;
-    
+
     /**
      * 创建用户
      *
@@ -54,9 +57,9 @@ public class UserManagerImpl implements UserManager {
 
         UserDo userDo = new UserDo();
         CommonConvertor.convert(userVO, userDo);
-        
+
         userDoMapper.insertSelective(userDo);
-        
+
         return true;
     }
 
@@ -74,18 +77,18 @@ public class UserManagerImpl implements UserManager {
 //
 //        UserDoExample.Criteria or = example.or();
 //        or.andNameEqualTo("321"); // or name=321
-        
+
         // select * from ml_user where (name=123 and state in ("normal", "locked", "deleted")) or (name=321)
-        
+
         List<UserDo> userDos = userDoMapper.selectByExample(example);
-        
+
         List<UserVo> result = new ArrayList<>();
-        userDos.forEach((userDo)->{
+        userDos.forEach((userDo) -> {
             UserVo userVo = new UserVo();
             CommonConvertor.convert(userDo, userVo);
             result.add(userVo);
         });
-        
+
         return result;
     }
 
@@ -111,6 +114,25 @@ public class UserManagerImpl implements UserManager {
         AssertUtil.notNull(userVo, "userVo为空");
 
         return false;
+    }
+
+    @Override
+    public UserVo registUser(RegistForm form) {
+
+
+        UserDo userDo = new UserDo();
+        CommonConvertor.convert(form,userDo);
+        userDo.setName(form.getPhone());
+        int insert = userDoMapper.insert(userDo);
+
+        if(insert==0){
+            throw new PhoneExistException();
+        }
+
+        UserVo userVo =new UserVo();
+        CommonConvertor.convert(userDo,userVo);
+
+        return userVo;
     }
 
 //    @Override
@@ -152,30 +174,10 @@ public class UserManagerImpl implements UserManager {
 //        return userVo;
 //    }
 
-    @Override
-    public UserVo registUser(Map<String, Object> body) {
-
-        String teype = (String) body.getOrDefault("teype", "");
-        //手机号码
-        if(TextUtils.isEmpty(teype)){
-            String phone = (String) body.get("phone");
-            String password = (String) body.get("password");
-            UserDo userDo = new UserDo();
-            userDo.setPassword(password);
-            userDo.setPhone(phone);
-            userDoMapper.insert(userDo);
-
-        }else{
-            //三方
-
-        }
-
-        return null;
-    }
 
     @Override
     public UserVo findUserByPlat(LoginByPlatForm loginForm) {
-        UserDoExample example =new UserDoExample();
+        UserDoExample example = new UserDoExample();
         UserDoExample.Criteria criteria = example.createCriteria();
 
         ThirdPlatformInfoDoExample platformInfoDoExample = new ThirdPlatformInfoDoExample();
@@ -184,13 +186,13 @@ public class UserManagerImpl implements UserManager {
         thirdCriteria.andTypeEqualTo(loginForm.getType());
 
         List<ThirdPlatformInfoDo> thirdPlatformInfoDos = thirdPlatformManager.selectByExample(platformInfoDoExample);
-        if(thirdPlatformInfoDos.size()>0){
+        if (thirdPlatformInfoDos.size() > 0) {
             ThirdPlatformInfoDo platformInfoDo = thirdPlatformInfoDos.get(0);
             criteria.andIdEqualTo(platformInfoDo.getUserId());
-            List<UserDo> userDos=userDoMapper.selectByExample(example);
+            List<UserDo> userDos = userDoMapper.selectByExample(example);
 
             return getUserVo(userDos);
-        }else{
+        } else {
 
             UserDo userDo = new UserDo();
             userDo.setGmtCreate(new Date());
@@ -216,22 +218,19 @@ public class UserManagerImpl implements UserManager {
 
             thirdPlatformManager.insert(infoDo);
 
-            UserVo userVo =new UserVo();
-            CommonConvertor.convert(userDo,userVo);
+            UserVo userVo = new UserVo();
+            CommonConvertor.convert(userDo, userVo);
             return userVo;
         }
-
-
-
 
 
     }
 
     private UserVo getUserVo(List<UserDo> userDos) {
         UserVo userVo = null;
-        if(userDos!=null &&userDos.size()>0){
+        if (userDos != null && userDos.size() > 0) {
             userVo = new UserVo();
-            CommonConvertor.convert(userDos.get(0),userVo);
+            CommonConvertor.convert(userDos.get(0), userVo);
         }
 
         return userVo;
@@ -241,11 +240,11 @@ public class UserManagerImpl implements UserManager {
     public UserVo findUserByPhone(LoginByPhoneForm loginForm) {
 
 
-        UserDoExample example =new UserDoExample();
+        UserDoExample example = new UserDoExample();
         UserDoExample.Criteria criteria = example.createCriteria();
         criteria.andPhoneEqualTo(loginForm.getPhone());
 
-        List<UserDo> userDos=userDoMapper.selectByExample(example);
+        List<UserDo> userDos = userDoMapper.selectByExample(example);
 
         return getUserVo(userDos);
     }

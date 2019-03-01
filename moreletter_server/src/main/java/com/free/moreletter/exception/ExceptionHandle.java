@@ -2,12 +2,10 @@ package com.free.moreletter.exception;
 
 import com.free.moreletter.conf.constants.HttpCode;
 import com.free.moreletter.domain.BaseException;
-import com.free.moreletter.exception.exception.IllegalParamsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

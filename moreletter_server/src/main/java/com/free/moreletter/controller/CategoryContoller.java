@@ -4,11 +4,17 @@
 package com.free.moreletter.controller;
 
 import com.free.moreletter.domain.CategoryVo;
+import com.free.moreletter.domain.form.InsertCategoryForm;
+import com.free.moreletter.exception.ExceptionResult;
+import com.free.moreletter.exception.success.ErrorResult;
+import com.free.moreletter.exception.success.SuccessResult;
 import com.free.moreletter.manager.CategoryManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -22,14 +28,21 @@ public class CategoryContoller {
     
     @Autowired
     CategoryManager categoryManager;
-    
 
-    @RequestMapping("/category/list")
-    public Object listUser() {
 
+    @RequestMapping(value = "/category/list",method = RequestMethod.GET)
+    public Object list() {
         List<CategoryVo> categoryVos = categoryManager.listCategory();
-
         return categoryVos;
+    }
+
+
+    @RequestMapping(value = "/category",method = RequestMethod.POST)
+    public Object add(@Valid @RequestBody  InsertCategoryForm form) {
+
+        Long categoryId = categoryManager.add(form.getName());
+
+        return new CategoryVo(categoryId,form.getName());
     }
 
 }

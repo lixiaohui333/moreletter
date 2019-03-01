@@ -1,20 +1,20 @@
-package com.free.moreletter.domain;
+package com.free.moreletter.dao.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.io.Serializable;
 import java.util.Date;
 
-public class BaseVo extends ToString implements Serializable {
+public class BaseDo  {
 
-    @JsonIgnore
     private Date gmtCreate;
-    @JsonIgnore
     private Date gmtModified;
-    @JsonIgnore
     private String creator;
-    @JsonIgnore
     private String state;
+
+    public BaseDo() {
+        creator="lxh";
+        gmtCreate=new Date();
+        gmtModified=new Date();
+        state="ok";
+    }
 
     public Date getGmtCreate() {
         return gmtCreate;
